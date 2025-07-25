@@ -20,6 +20,7 @@ const generateRandomString = length => {
 };
 
 app.get('/login', (req, res) => {
+  res.send("Login route works!");
   console.log("🔥 /login route was called");
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -83,6 +84,9 @@ const sslOptions = {
   cert: fs.readFileSync('localhost-cert.pem')
 };
 
-https.createServer(sslOptions, app).listen(55028, () => {
-  console.log('✅ Listening securely on https://localhost:55028');
+const PORT = process.env.PORT || 55028;
+
+https.createServer(sslOptions, app).listen(PORT, () => {
+  console.log(`✅ Listening securely on port ${PORT}`);
 });
+

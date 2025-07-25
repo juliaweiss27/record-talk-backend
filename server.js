@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const client_id = '7b637bfb43a44a99b8dc308d4c0da47f';
 const client_secret = '7e9b94fcb1d842d386878f7b760351d6';
-const redirect_uri = 'https://localhost:55028/callback';
+const redirect_uri = 'https://record-talk-backend.onrender.com/callback';
 
 const app = express();
 app.use(cookieParser());
@@ -20,19 +20,21 @@ const generateRandomString = length => {
 };
 
 app.get('/login', (req, res) => {
-  res.send("Login route works!");
-  console.log("🔥 /login route was called");
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
   const scope = 'user-read-private user-read-email playlist-read-private';
   const authQueryParameters = querystring.stringify({
-  response_type: 'code',
-  client_id: client_id,
-  scope: scope,
-  redirect_uri: redirect_uri,
-  state: state
+    response_type: 'code',
+    client_id: client_id,
+    scope: scope,
+    redirect_uri: redirect_uri,
+    state: state
+  });
+
+  res.redirect('https://accounts.spotify.com/authorize?' + authQueryParameters);
 });
+
 
 console.log("Redirecting to:", 'https://accounts.spotify.com/authorize?' + authQueryParameters);
 

@@ -19,7 +19,7 @@ const generateRandomString = length => {
   return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 };
 
-app.get('/login', (req, res) => {
+aapp.get('/login', (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -27,14 +27,13 @@ app.get('/login', (req, res) => {
   const authQueryParameters = querystring.stringify({
     response_type: 'code',
     client_id: client_id,
-    scope: scope,
-    redirect_uri: redirect_uri,
-    state: state
+    scope,
+    redirect_uri,
+    state
   });
 
   res.redirect('https://accounts.spotify.com/authorize?' + authQueryParameters);
 });
-
 
 console.log("Redirecting to:", 'https://accounts.spotify.com/authorize?' + authQueryParameters);
 

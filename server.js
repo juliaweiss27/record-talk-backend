@@ -84,9 +84,9 @@ const sslOptions = {
   cert: fs.readFileSync('localhost-cert.pem')
 };
 
-const PORT = process.env.PORT || 55028;
-
-https.createServer(sslOptions, app).listen(PORT, () => {
-  console.log(`✅ Listening securely on port ${PORT}`);
+const PORT = process.env.PORT || 55028; //can also use 5500
+app.listen(PORT, () => {
+  console.log(`✅ Listening on port ${PORT}`);
 });
+
 
